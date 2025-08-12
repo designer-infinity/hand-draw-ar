@@ -8,35 +8,51 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* AR/Tech themed design system */
+    --background: 220 27% 6%;
+    --foreground: 180 100% 95%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 220 26% 8%;
+    --card-foreground: 180 100% 95%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 220 26% 10%;
+    --popover-foreground: 180 100% 95%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 189 100% 50%;
+    --primary-foreground: 220 27% 6%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 220 26% 12%;
+    --secondary-foreground: 180 100% 95%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 220 26% 14%;
+    --muted-foreground: 180 25% 65%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 272 100% 60%;
+    --accent-foreground: 180 100% 95%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 180 100% 95%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 220 26% 18%;
+    --input: 220 26% 12%;
+    --ring: 189 100% 50%;
 
-    --radius: 0.5rem;
+    /* Custom AR colors */
+    --neon-cyan: 189 100% 50%;
+    --neon-purple: 272 100% 60%;
+    --neon-green: 120 100% 50%;
+    --glass-bg: 220 26% 10% / 0.6;
+    --glass-border: 189 100% 50% / 0.2;
+    
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(189 100% 50%), hsl(272 100% 60%));
+    --gradient-glass: linear-gradient(135deg, hsl(220 26% 12% / 0.8), hsl(220 26% 8% / 0.6));
+    
+    /* Shadows */
+    --shadow-neon: 0 0 20px hsl(189 100% 50% / 0.5);
+    --shadow-glow: 0 0 40px hsl(189 100% 50% / 0.3);
+    
+    --radius: 1rem;
 
     --sidebar-background: 0 0% 98%;
 
@@ -56,41 +72,26 @@ All colors MUST be HSL.
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* Use same colors as light mode for consistent AR theme */
+    --background: 220 27% 6%;
+    --foreground: 180 100% 95%;
+    --card: 220 26% 8%;
+    --card-foreground: 180 100% 95%;
+    --popover: 220 26% 10%;
+    --popover-foreground: 180 100% 95%;
+    --primary: 189 100% 50%;
+    --primary-foreground: 220 27% 6%;
+    --secondary: 220 26% 12%;
+    --secondary-foreground: 180 100% 95%;
+    --muted: 220 26% 14%;
+    --muted-foreground: 180 25% 65%;
+    --accent: 272 100% 60%;
+    --accent-foreground: 180 100% 95%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 180 100% 95%;
+    --border: 220 26% 18%;
+    --input: 220 26% 12%;
+    --ring: 189 100% 50%;
   }
 }
 
@@ -100,6 +101,26 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground overflow-hidden;
+  }
+}
+
+@layer components {
+  .glass-panel {
+    background: hsl(var(--glass-bg));
+    border: 1px solid hsl(var(--glass-border));
+    backdrop-filter: blur(20px);
+    border-radius: var(--radius);
+  }
+  
+  .neon-glow {
+    box-shadow: var(--shadow-neon);
+  }
+  
+  .ar-grid {
+    background-image: 
+      linear-gradient(hsl(var(--neon-cyan) / 0.1) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--neon-cyan) / 0.1) 1px, transparent 1px);
+    background-size: 50px 50px;
   }
 }
