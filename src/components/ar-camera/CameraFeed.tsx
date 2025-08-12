@@ -67,7 +67,8 @@ export const CameraFeed = ({ onHandData, isTracking }: CameraFeedProps) => {
         if (videoRef.current) {
           const cameraInstance = new Camera(videoRef.current, {
             onFrame: async () => {
-              if (videoRef.current && isTracking) {
+              if (videoRef.current && handsInstance) {
+                // Always send frames; internal throttling handles performance
                 await handsInstance.send({ image: videoRef.current });
               }
             },

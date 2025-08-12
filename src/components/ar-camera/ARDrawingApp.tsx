@@ -39,28 +39,28 @@ export const ARDrawingApp = () => {
   };
 
   const handleCapture = () => {
-    // Create a composite image of camera feed + drawing
     const video = document.querySelector('video');
-    const drawingCanvas = document.querySelector('canvas:last-of-type') as HTMLCanvasElement;
+    const drawingCanvas = document.querySelector('canvas[data-role="drawing-canvas"]') as HTMLCanvasElement;
     
     if (video && drawingCanvas) {
       const canvas = document.createElement('canvas');
       const ctx = canvas.getContext('2d');
       
       if (ctx) {
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
+        canvas.width = video.videoWidth || drawingCanvas.width;
+        canvas.height = video.videoHeight || drawingCanvas.height;
         
         // Draw video frame (flipped)
-        ctx.save();
-        ctx.scale(-1, 1);
-        ctx.drawImage(video, -canvas.width, 0, canvas.width, canvas.height);
-        ctx.restore();
+        if (canvas.width && canvas.height) {
+          ctx.save();
+          ctx.scale(-1, 1);
+          ctx.drawImage(video as HTMLVideoElement, -canvas.width, 0, canvas.width, canvas.height);
+          ctx.restore();
+        }
         
-        // Draw the drawing canvas on top
+        // Draw the drawing canvas on top (scale from CSS to pixels)
         ctx.drawImage(drawingCanvas, 0, 0, canvas.width, canvas.height);
         
-        // Download the image
         canvas.toBlob((blob) => {
           if (blob) {
             const url = URL.createObjectURL(blob);
@@ -69,7 +69,6 @@ export const ARDrawingApp = () => {
             a.download = `ar-drawing-${Date.now()}.png`;
             a.click();
             URL.revokeObjectURL(url);
-            toast.success("AR drawing saved!");
           }
         }, 'image/png');
       }
